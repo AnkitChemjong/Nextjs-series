@@ -1,6 +1,7 @@
 import connectToDB from "@/database";
 import Joi from 'joi';
 //import { NextApiResponse,NextApiRequest } from "next"; only with the typescript
+import Blog from "@/models/blog";
 
 
 const addNewBlog=Joi.object({
@@ -11,8 +12,12 @@ const addNewBlog=Joi.object({
 const postBlog=async(req,res)=>{
 
     try{
+        console.log("hello world!");
+        if (req.method !== 'POST') {
+            return res.status(405).json({ success: false, message: 'Method Not Allowed' });
+        }
         await connectToDB();
-        const extractBlogData=await req.json();
+        const extractBlogData=await req.body;
         const {title,description}=extractBlogData;
         const {error}=addNewBlog.validate({title,description})
         if(error){

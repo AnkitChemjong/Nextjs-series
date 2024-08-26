@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Button } from "../ui/button";
@@ -13,6 +13,7 @@ import {
   import { Label } from "../ui/label";
 
 const AddBlog=({openBlogDialog,setOpenBlogDialog})=>{
+  const [loading,setLoading]=useState(false);
     const [data,setData]=useState({
         title:'',
         description:'',
@@ -23,6 +24,22 @@ const AddBlog=({openBlogDialog,setOpenBlogDialog})=>{
      const {name,value}=e.target;
      setData((prev)=>({...prev,[name]:value}));
     }
+    const handleSaveBlogData=async()=>{
+      try{
+          const apiResponse=await fetch('/api/add-blog',{
+            method:'POST',
+            headers:{'Content-Type': 'application-json'},
+            body: JSON.stringify(data)
+          });
+          const result=await apiResponse.json();
+          // console.log(result);
+      }
+      catch(err){
+        console.log(err);
+        setLoading(false);
+      }
+    }
+
     return (
  <>
   <div>
@@ -63,7 +80,7 @@ const AddBlog=({openBlogDialog,setOpenBlogDialog})=>{
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button onClick={handleSaveBlogData} type="submit">Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
