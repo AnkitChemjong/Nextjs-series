@@ -1,4 +1,4 @@
-import {Schema,model} from 'mongoose';
+import {Schema,model,models} from 'mongoose';
 
 
 const blogSchema=new Schema({
@@ -12,6 +12,6 @@ const blogSchema=new Schema({
     }
 },{timestamps:true});
 
-const Blog=model("Blog",blogSchema);
+const Blog =models.Blog || model("Blog", blogSchema);
 
 export default Blog;

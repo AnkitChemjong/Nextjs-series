@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
     Dialog,
@@ -11,14 +11,18 @@ import {
   } from "../ui/dialog";
   import { Input } from "../ui/input";
   import { Label } from "../ui/label";
+  import { useRouter } from "next/navigation";
 
-const AddBlog=({openBlogDialog,setOpenBlogDialog})=>{
+const AddBlog=({openBlogDialog,setOpenBlogDialog,blogId,setBlogId})=>{
   const [loading,setLoading]=useState(false);
     const [data,setData]=useState({
         title:'',
         description:'',
     });
-    
+  const router=useRouter();
+  useEffect(()=>{
+    router.refresh();
+  },[]);
 
     const handleChange=(e)=>{
      const {name,value}=e.target;
@@ -26,30 +30,59 @@ const AddBlog=({openBlogDialog,setOpenBlogDialog})=>{
     }
     const handleSaveBlogData=async()=>{
       try{
-          const apiResponse=await fetch('/api/add-blog',{
+        setLoading(true);
+        
+          const apiResponse=blogId!==null? await fetch(`/api/update-blog?id=${blogId}`,{
+            method:'PUT',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+          }):await fetch('/api/add-blog',{
             method:'POST',
-            headers:{'Content-Type': 'application-json'},
+            headers:{'Content-Type': 'application/json'},
             body: JSON.stringify(data)
           });
+        
           const result=await apiResponse.json();
-          // console.log(result);
+         
+          if(result?.success){
+
+            setData({ title: '', description: '' });
+            setOpenBlogDialog(false);
+            setLoading(false);
+            setBlogId(null);
+            router.refresh();
+          }
       }
       catch(err){
         console.log(err);
+        setData({ title: '', description: '' });
         setLoading(false);
+        setBlogId(null);
+        setOpenBlogDialog(false);
+      } 
+      finally {
+        setLoading(false);
+        setOpenBlogDialog(false);
+        setBlogId(null);
+        setData({ title: '', description: '' });
+        } 
       }
-    }
+     
 
     return (
  <>
   <div>
      <Button onClick={()=>setOpenBlogDialog(true)}>Add New Bog</Button>
     </div>
-    <Dialog open={openBlogDialog} onOpenChange={setOpenBlogDialog}>
+    <Dialog open={openBlogDialog} onOpenChange={()=>{
+      setOpenBlogDialog(false);
+      setData({ title: '', description: '' });
+      setBlogId(null);
+      }}>
       
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px]" aria-describedby="dialog-description">
         <DialogHeader>
-          <DialogTitle>Add New Blog</DialogTitle>
+          <DialogTitle>{blogId===null? "Add New Blog":"Edit Blog"}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -80,7 +113,9 @@ const AddBlog=({openBlogDialog,setOpenBlogDialog})=>{
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleSaveBlogData} type="submit">Save changes</Button>
+          <Button onClick={handleSaveBlogData} type="submit">{
+            loading? "Loading...":"Save changes"
+          }</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

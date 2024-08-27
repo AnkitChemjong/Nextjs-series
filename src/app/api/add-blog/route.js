@@ -1,54 +1,69 @@
 import connectToDB from "@/database";
-import Joi from 'joi';
-//import { NextApiResponse,NextApiRequest } from "next"; only with the typescript
+import Joi from "joi";
 import Blog from "@/models/blog";
+import { NextResponse } from "next/server";
 
+const addNewBlog = Joi.object({
+  title: Joi.string().required(),
+  description: Joi.string().required(),
+});
 
-const addNewBlog=Joi.object({
-    title:Joi.string().required(),
-    description:Joi.string().required()
-})
-
-const postBlog=async(req,res)=>{
-
-    try{
-        console.log("hello world!");
-        if (req.method !== 'POST') {
-            return res.status(405).json({ success: false, message: 'Method Not Allowed' });
-        }
-        await connectToDB();
-        const extractBlogData=await req.body;
-        const {title,description}=extractBlogData;
-        const {error}=addNewBlog.validate({title,description})
-        if(error){
-            return res.status(500).json({
-                success:false,
-                message:error.details[0].message
-            })
-        }
-        const newlyCreatedBlogItem=await Blog.create(extractBlogData);
-        if(newlyCreatedBlogItem){
-            return res.json({
-                success:true,
-                message:"new BLog is created"
-            })
-        }
-        else{
-            return res.status(500).json({
-                success:false,
-                message:"Something went wrong in PostBlog"
-            })
-        }
-
-
-    }
-    catch(err){
-        console.log(err);
-        return res.status(500).json({
-            success:false,
-            message:"Something went wrong in PostBlog"
-        })
+export async function POST(req) {
+  try {
+    // Check if the method is POST
+    if (req.method !== "POST") {
+      return NextResponse.json(
+        { success: false, message: "Method Not Allowed" },
+        { status: 405 }
+      );
     }
 
+    // Connect to the database
+    await connectToDB();
+
+    // Parse JSON data from request body
+    const bodyData = await req.json();
+    const { title, description } = bodyData;
+
+    // console.log('Title:', title);
+    // console.log('Description:', description);
+
+    // Validate data
+    const { error } = addNewBlog.validate({ title, description });
+    if (error) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: error.details[0].message,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Create a new blog item
+    const newlyCreatedBlogItem = await Blog.create({ title, description });
+    if (newlyCreatedBlogItem) {
+      return NextResponse.json({
+        success: true,
+        message: "New blog is created",
+      });
+    } else {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Something went wrong in PostBlog",
+        },
+        { status: 500 }
+      );
+    }
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Something went wrong in PostBlog",
+      },
+      { status: 500 }
+    );
+  }
 }
-export default postBlog;
