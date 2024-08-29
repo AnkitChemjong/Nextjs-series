@@ -72,7 +72,63 @@ export async function fetchUserAction(){
 }
 
 //edit user action
+export async function editUserAction(currentUserID,formData,pathToRevalidate){
+  await connectToDb();
 
+  try{
+    const editUser=await User.findByIdAndUpdate(currentUserID,formData,{new:true});
+    if(editUser){
+      revalidatePath(pathToRevalidate)
+      return {
+          success:true,
+          message:"user edited successfully"
+      }
+
+    }
+    else{
+      return {
+          success:false,
+          message:`error on editing user`
+      }
+    }
+  }
+  catch(error){
+      console.log(error);
+      return {
+          success:false,
+          message:`error on editing user:${error.message}`
+      }
+  }
+}
 
 
 //delete user action
+export async function deleteUserAction(currentUserID,pathToRevalidate){
+  await connectToDb();
+
+  try{
+    const deletedUser=await User.findByIdAndDelete(currentUserID);
+    if(deletedUser){
+      revalidatePath(pathToRevalidate)
+      return {
+          success:true,
+          message:"user deleted successfully"
+      }
+
+    }
+    else{
+      return {
+          success:false,
+          message:`error on deleting user`
+      }
+    }
+  }
+  catch(error){
+      console.log(error);
+      return {
+          success:false,
+          message:`error on deleting user:${error.message}`
+      }
+  }
+
+}

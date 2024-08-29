@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "../ui/button";
-import {useState} from 'react';
+import { useContext, useState } from "react";
+import { userContext } from "@/context";
 import {
   Dialog,
   DialogContent,
@@ -13,32 +14,55 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { addNewUserFormControls, userInitialState } from "@/utils";
 import { addNewUserAction } from "@/actions";
+import { editUserAction } from "@/actions";
 
 function AddNewUser() {
-  const [openDialog, setOpenDialog] = useState(false);
-  const [addNewUserFormData,setAddNewUserFormData]=useState(userInitialState);
+  const {
+    currentEditedID,
+    setCurrentEditedID,
+    addNewUserFormData,
+    setAddNewUserFormData,
+    openDialog,
+    setOpenDialog,
+  } = useContext(userContext);
+  const [loading,setLoading]=useState(false);
 
-
-  function handleSaveButtonValid(){
-    return Object.keys(addNewUserFormData).every((key)=>addNewUserFormData[key].trim() !== "");
+  function handleSaveButtonValid() {
+    return Object.keys(addNewUserFormData).every(
+      (key) => addNewUserFormData[key].trim() !== ""
+    );
   }
 
-  async function handleAddNewUser(){
-    const result=await addNewUserAction(addNewUserFormData,'/userManagement');
+  async function handleAddNewUser() {
+    setLoading(true);
+    const result =currentEditedID === null
+        ? await addNewUserAction(addNewUserFormData, "/userManagement")
+        : await editUserAction(
+            currentEditedID,
+            addNewUserFormData,
+            "/userManagement"
+          );
     setOpenDialog(false);
-    setAddNewUserFormData(userInitialState)
+    setAddNewUserFormData(userInitialState);
+    setLoading(false);
   }
-
- 
 
   return (
     <div className="flex justify-between">
       <Button onClick={() => setOpenDialog(true)}>Add New User</Button>
-      <Dialog open={openDialog} onOpenChange={()=>{setOpenDialog(false)
-    setAddNewUserFormData(userInitialState)}}>
+      <Dialog
+        open={openDialog}
+        onOpenChange={() => {
+          setOpenDialog(false);
+          setAddNewUserFormData(userInitialState);
+          setCurrentEditedID(null);
+        }}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add New User</DialogTitle>
+            <DialogTitle>
+              {currentEditedID === null ? "Add New User" : "Edit User"}
+            </DialogTitle>
             <DialogDescription>
               Make changes to your profile here. Click save when you're done.
             </DialogDescription>
@@ -52,21 +76,32 @@ function AddNewUser() {
                       {controlItem.label}
                     </Label>
                     <Input
-                    type={controlItem.type}
+                      type={controlItem.type}
                       id={controlItem.name}
                       name={controlItem.name}
                       className="col-span-3"
                       placeholder={controlItem.placeHolder}
                       value={addNewUserFormData[controlItem.name]}
-                      onChange={(event)=>setAddNewUserFormData({...addNewUserFormData,[controlItem.name]:event.target.value})}
+                      onChange={(event) =>
+                        setAddNewUserFormData({
+                          ...addNewUserFormData,
+                          [controlItem.name]: event.target.value,
+                        })
+                      }
                     />
                   </div>
                 );
               })}
             </div>
-          <DialogFooter>
-            <Button className="disabled:opacity-55" disabled={!handleSaveButtonValid()} type="submit">Save</Button>
-          </DialogFooter>
+            <DialogFooter>
+              <Button
+                className="disabled:opacity-55"
+                disabled={!handleSaveButtonValid()}
+                type="submit"
+              >
+                {loading? "loading...":"Save"}
+              </Button>
+            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
