@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {useState} from 'react';
 import {
   Dialog,
   DialogContent,
@@ -18,22 +17,19 @@ import { addNewUserAction } from "@/actions";
 function AddNewUser() {
   const [openDialog, setOpenDialog] = useState(false);
   const [addNewUserFormData,setAddNewUserFormData]=useState(userInitialState);
-  const router=useRouter();
+
 
   function handleSaveButtonValid(){
     return Object.keys(addNewUserFormData).every((key)=>addNewUserFormData[key].trim() !== "");
   }
 
   async function handleAddNewUser(){
-    const result=await addNewUserAction(addNewUserFormData);
+    const result=await addNewUserAction(addNewUserFormData,'/userManagement');
     setOpenDialog(false);
     setAddNewUserFormData(userInitialState)
-    router.refresh();
   }
 
-  useEffect(()=>{
-    router.refresh();
-  },[])
+ 
 
   return (
     <div className="flex justify-between">

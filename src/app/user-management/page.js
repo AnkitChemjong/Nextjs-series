@@ -12,7 +12,7 @@ async function UserManagement(){
             <h1 className="text-2xl font-bold border-2 border-black p-2">User-Management</h1>
              <AddNewUser/>
            </div>
-           <div className="mt-6">
+           <div className="mt-6  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
            {
                     users && users.length > 0? (
                         users.map(user =>{
