@@ -108,7 +108,7 @@ export async function fetchAuthUserAction(){
         }
         else{
             return {
-                success:true,
+                success:false,
                data:null,
                message:"Error in gettingAuthUserAction"
             } 
@@ -122,4 +122,11 @@ export async function fetchAuthUserAction(){
             data:null
         }
     }
+}
+
+
+export async function logoutAction(){
+    console.log("logoutAction")
+    const getCookies=cookies();
+    getCookies.delete('cook');
 }
