@@ -55,7 +55,7 @@ export async function LoginUserAction(formData){
         await connectToDB();
         const {email,password}=formData;
         const result=await User.checkLogin(email,password);
-        console.log(result);
+        // console.log(result);
         if(result.success){
            const getCookies=cookies();
            getCookies.set('cook',result.data,{httpOnly:true,maxAge:24*60*60*1000});

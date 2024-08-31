@@ -4,7 +4,7 @@ import {cookies} from 'next/headers';
 
 export function middleware(req){
 const path=req.nextUrl.pathname;
-const checkPublicPath=path==='/sign-in'||path==='sign-up';
+const checkPublicPath=path==='/sign-in'||path==='/sign-up';
 const getCookies=cookies();
 const token=getCookies.get('cook')?.value||"";
 if(checkPublicPath && token !==""){
