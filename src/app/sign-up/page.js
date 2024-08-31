@@ -31,7 +31,7 @@ function SignUp() {
       <form action={handleSignUp}>
         {formControls.map((controlItem) => {
           return (
-            <div>
+            <div key={controlItem.name}>
               <Label>{controlItem?.label}</Label>
               <CommonFormElement
                 value={signUpFormData[controlItem.name]}
