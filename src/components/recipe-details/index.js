@@ -6,7 +6,7 @@ export default function RecipeDetailsItem({getRecipeDetails}){
     <>
     <Link className="flex items-center justify-center" href={'/'}>Go Back to Home</Link>
     <div className="p-6 lg:max-6xl max-w-2xl mx-auto">
-    <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
+    <div className="grid items-start grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
     <div className="w-full lg:sticky top-0 sm:flex gap-2">
     <img src={getRecipeDetails?.image} 
     name={getRecipeDetails?.name} 
