@@ -23,7 +23,7 @@ export default function RecipeDetailsItem({getRecipeDetails}){
            <p className="text-xl text-gray-800">{getRecipeDetails?.cuisine}</p> 
         </div>
         <div className="mt-5">
-            <h3 className="text-lg font-bold text-gray-800">Ingredients</h3>
+            <h3 className="text-lg font-bold text-gray-800">Ingredients of foods</h3>
               <ul className="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-800">
                 {getRecipeDetails?.ingredients.map((item,index)=>{
                     return <li key={index}>{item}</li>
