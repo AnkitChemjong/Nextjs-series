@@ -16,15 +16,15 @@ export default function RecipeDetailsItem({getRecipeDetails}){
     <div>
         <h2 className="text-3xl font-extrabold text-gray-950">{getRecipeDetails?.name}</h2>
         <div className="flex flex-wrap gap-4 mt-5">
-            <p className="text-2xl text-gray-700">{getRecipeDetails?.mealType[0]}</p>
+            <p className="text-2xl text-gray-800">{getRecipeDetails?.mealType[0]}</p>
 
         </div>
         <div className="mt-5">
            <p className="text-xl text-gray-800">{getRecipeDetails?.cuisine}</p> 
         </div>
         <div className="mt-5">
-            <h3 className="text-lg font-bold text-gray-700">Ingredients</h3>
-              <ul className="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-700">
+            <h3 className="text-lg font-bold text-gray-800">Ingredients</h3>
+              <ul className="space-y-3 list-disc mt-4 pl-4 text-sm text-gray-800">
                 {getRecipeDetails?.ingredients.map((item,index)=>{
                     return <li key={index}>{item}</li>
                 })}
