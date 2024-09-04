@@ -7,7 +7,7 @@ async function fetchRecipeDetails(id){
          return data;
     }
     catch(e){
-        throw new Error("error on fetching recipe of foods"+e.message)
+        throw new Error("error on fetching recipe of foods and"+e.message)
     }
 }
 
