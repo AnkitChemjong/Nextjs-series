@@ -1,13 +1,15 @@
 
 import { fetchProductDetails } from '@/actions';
+import { auth } from '@/auth';
 import AddToCartButton from '@/components/add-to-cart-button';
-
+import { redirect } from "next/navigation";
 
 async function ProductDetails({params}){
     const {details}=params;
+    const getSession =await auth();
     
     const getProductDetails=await fetchProductDetails(details);
-
+   if(!getSession?.user) redirect("/unauth-page");
 
     return(
         <div className='max-w-6xl mx-auto p-2'>
@@ -32,7 +34,7 @@ async function ProductDetails({params}){
                     <h2 className='text-3xl font-bold text-gray-900'>{getProductDetails?.data?.title}</h2>
                    <p className='mt-5 text-gray-800 text-xl'>{getProductDetails?.data?.price}</p>
                    <h3 className='text-lg font-bold text-gray-700'>{getProductDetails?.data?.description}</h3>
-                   <AddToCartButton productItem={getProductDetails}/>
+                   <AddToCartButton productItem={getProductDetails?.data}/>
                  </div>
                </div>
             </div>

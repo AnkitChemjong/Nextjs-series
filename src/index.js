@@ -5,8 +5,8 @@ import { Provider } from "react-redux";
 import Header from "./components/header";
 
 
-export default function ReduxProvider({children}){
+export default function ReduxProvider({children,getSession}){
     return <Provider store={store}>
-        <Header/>
+        <Header getSession={getSession}/>
         {children}</Provider>
 }

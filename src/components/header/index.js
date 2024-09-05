@@ -1,9 +1,23 @@
 'use client'
 
+import { loginAction,logoutAction } from "@/actions";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
- function Header(){
+ function Header({getSession}){
+    const router=useRouter();
+
+    async function handleOauthSignIn(){
+        router.push('/api/auth/signin');
+        //await loginAction();
+  
+    }
+    async function handleOauthSignOut(){
+        router.push('/api/auth/signout');
+        //await logoutAction();
+      
+    }
     return (
         <header className="flex shadow-md py-4 px-4 bg-white min-h-[70px] tracking-wide relative z-50">
               <div className="flex flex-wrap items-center justify-between gap-5 w-full">
@@ -20,9 +34,10 @@ import { Button } from "../ui/button";
                     </li>
                 </ul>
               <div className="flex space-x-3">
-                <form>
-                    <Button>Login</Button>
+                <form onSubmit={getSession?.user? handleOauthSignOut:handleOauthSignIn}>
+                    <Button type='submit'>{getSession? "Logout":"Login"}</Button>
                 </form>
+            
 
               </div>  
         </header>

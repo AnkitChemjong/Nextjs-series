@@ -6,7 +6,8 @@ import { addToCart,removeFromCart } from "@/store/slice/cart-slice";
 
 function AddToCartButton({productItem}){
     const {cart}=useSelector((state)=>state);
-    console.log(cart.productItem);
+
+
     const dispatch=useDispatch();
 
     function handleAddToCart(){

@@ -1,10 +1,23 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { removeFromCart } from "@/store/slice/cart-slice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button } from "../ui/button";
 
 function Cart() {
+  const [totalAmount,setTotalAmount]=useState(0);
   const { cart } = useSelector((state) => state);
-  console.log(cart);
+  const dispatch=useDispatch();
+
+  useEffect(()=>{
+   setTotalAmount(cart?.cartItems.reduce((acc,curr)=>acc+curr?.price,0))
+  },[cart?.cartItems])
+
+  function handleRemoveFromCart(getCurrentItemID){
+     dispatch(removeFromCart(getCurrentItemID));
+  }
+
   if (!cart?.cartItems.length)
     return (
       <div className="w-full h-[100vh] flex justify-center items-center ">
@@ -37,13 +50,29 @@ function Cart() {
                             className="w-ful h-full object-contain"
                           />
                         </div>
+                        <div>
+                          <p className="text-lg font-bold text-black">{item?.title}</p>
+                        </div>
                       </div>
+                    </td>
+                    <td >
+                          <p>{item?.price}</p> 
+                    </td>
+                    <td className="py-5 px-4 ">
+                         <Button onClick={()=>handleRemoveFromCart(item?.id)}>Remove</Button>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+        </div>
+        <div className="max-w-xl ml-auto mt-6">
+          <div>
+            <p className="text-lg font-bold">
+              Total <span>{totalAmount}</span>
+            </p>
+          </div>
         </div>
       </div>
     </div>

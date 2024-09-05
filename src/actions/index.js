@@ -1,4 +1,5 @@
-'use server'
+
+import { signIn,signOut } from "@/auth";
 
 
 
@@ -41,6 +42,38 @@ export async function fetchProductDetails(currentProductID){
         return {
             success:false,
             message:"some error occured in fetchAllProducts"
+        }
+    }
+}
+//login
+export async function loginAction(){
+    try{
+      await signIn('github');
+
+      
+    }
+    catch(error){
+        console.log(error);
+        return {
+            success:false,
+            message:"some error occured in Login action"
+        }
+    }
+}
+
+//signin
+
+export async function logoutAction(){
+    try{
+
+       await signOut();
+
+    }
+    catch(error){
+        console.log(error);
+        return {
+            success:false,
+            message:"some error occured in logoutAction"
         }
     }
 }
