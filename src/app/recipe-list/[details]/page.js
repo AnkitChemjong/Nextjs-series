@@ -7,7 +7,7 @@ async function fetchRecipeDetails(id){
          return data;
     }
     catch(e){
-        throw new Error("error on fetching recipe of foods and drinks:"+e.message)
+        throw new Error("error on fetching recipe of foods and drinks from url:"+e.message)
     }
 }
 
