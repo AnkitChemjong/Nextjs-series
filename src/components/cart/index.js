@@ -40,7 +40,7 @@ function Cart() {
             <tbody className="whitespace-nowrap divide-y ">
               {cart?.cartItems.map((item) => {
                 return (
-                  <tr>
+                  <tr key={item?.title}>
                     <td className="py-5 px-4">
                       <div className="flex items-center gap-6 w-max">
                         <div className="h-36 shrink-0">

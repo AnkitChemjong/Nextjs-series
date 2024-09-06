@@ -14,12 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Suspense fallback={<Loading/>}>
-
         <CommonLayout>
+        <Suspense fallback={<Loading/>}>
         {children}
-        </CommonLayout>
         </Suspense>
+        </CommonLayout>
         </body>
     </html>
   );

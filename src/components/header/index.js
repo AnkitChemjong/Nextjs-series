@@ -1,21 +1,23 @@
-'use client'
+'use client';
 
 import { loginAction,logoutAction } from "@/actions";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 
+
  function Header({getSession}){
     const router=useRouter();
 
     async function handleOauthSignIn(){
-        router.push('/api/auth/signin');
-        //await loginAction();
+        //router.push('/api/auth/signin');
+        await loginAction();
+        //await signIn('credentails',{email:"ankit@gmail.com",password:"fjf"});
   
     }
     async function handleOauthSignOut(){
-        router.push('/api/auth/signout');
-        //await logoutAction();
+        //router.push('/api/auth/signout');
+        await logoutAction();
       
     }
     return (
@@ -34,7 +36,7 @@ import { useRouter } from "next/navigation";
                     </li>
                 </ul>
               <div className="flex space-x-3">
-                <form onSubmit={getSession?.user? handleOauthSignOut:handleOauthSignIn}>
+                <form action={getSession?.user ? handleOauthSignOut:handleOauthSignIn}>
                     <Button type='submit'>{getSession? "Logout":"Login"}</Button>
                 </form>
             

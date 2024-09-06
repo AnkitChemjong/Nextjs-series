@@ -1,3 +1,4 @@
+'use server';
 
 import { signIn,signOut } from "@/auth";
 
@@ -47,33 +48,14 @@ export async function fetchProductDetails(currentProductID){
 }
 //login
 export async function loginAction(){
-    try{
-      await signIn('github');
-
-      
-    }
-    catch(error){
-        console.log(error);
-        return {
-            success:false,
-            message:"some error occured in Login action"
-        }
-    }
+    const result=await signIn('credentials',{email:"ankit@gmail.com",password:"ankit"},{redirect:false});
+    console.log(result);
+    //   await signIn('github') 
 }
 
-//signin
+//signout
 
 export async function logoutAction(){
-    try{
-
-       await signOut();
-
-    }
-    catch(error){
-        console.log(error);
-        return {
-            success:false,
-            message:"some error occured in logoutAction"
-        }
-    }
+await signOut();
+    
 }

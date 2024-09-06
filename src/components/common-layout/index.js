@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-const { default: ReduxProvider } = require("@/index");
+const { default: ReduxProvider } = require("@/provider");
 
 
 export default async function CommonLayout({children}){
