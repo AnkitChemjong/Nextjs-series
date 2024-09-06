@@ -19,4 +19,4 @@ const Recipes = async() => {
   )
 }
 
-export default Recipes
+export default Recipes;
