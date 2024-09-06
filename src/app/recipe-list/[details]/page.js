@@ -6,8 +6,8 @@ async function fetchRecipeDetails(id){
          const data=await apiResponse.json();
          return data;
     }
-    catch(e){
-        throw new Error("error on fetching recipe of foods and drinks from url:"+e.message)
+    catch(error){
+        throw new Error("error on fetching recipe of foods and drinks from url:"+error.message)
     }
 }
 

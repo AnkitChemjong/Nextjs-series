@@ -6,8 +6,8 @@ async function fetchListOfRecipes(){
     const data=await apiResponse.json();
     return data?.recipes;
     }
-    catch(e){
-        throw new Error("error fetching list of recipes"+e.message);
+    catch(error){
+        throw new Error("error fetching list of recipes"+error.message);
     }
 }
 
