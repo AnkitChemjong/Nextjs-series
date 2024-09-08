@@ -1,6 +1,7 @@
+
 import localFont from "next/font/local";
 import "./globals.css";
-import Loading from "./loading";
+import Loading from "./loading.js";
 import { Suspense } from "react";
 import CommonLayout from "@/components/common-layout";
 import {

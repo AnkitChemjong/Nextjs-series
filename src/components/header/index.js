@@ -2,9 +2,11 @@
 import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { AlignJustify } from "lucide-react";
+// import { UserButton } from "@clerk/nextjs";
+import { UserButton } from '@clerk/nextjs';
 import Link from "next/link";
 
-function Header() {
+function Header({user}) {
   const menuItems = [
     {
       label: "Home",
@@ -14,13 +16,38 @@ function Header() {
     {
       label: "Login",
       path: "/sign-in",
-      show: true,
+      show: !user,
     },
     {
       label: "Register",
       path: "/sign-up",
-      show: true,
+      show: !user,
     },
+    {
+        label:"Jobs",
+        path:"/jobs",
+        show:user
+
+    },
+    {
+        label:"Activity",
+        path:"/activity",
+        show:user
+
+    },
+    {
+        label:"MemberShip",
+        path:"/membership",
+        show:user
+
+    },
+    {
+        label:"Account",
+        path:"/account",
+        show:user
+
+    },
+
   ];
 
   return (
@@ -49,6 +76,7 @@ function Header() {
                   </Link>
                 ) : null;
               })}
+              <UserButton afterSignOutUrl="/"/>
             </div>
           </SheetContent>
         </Sheet>
@@ -67,7 +95,9 @@ function Header() {
                   </Link>
                 ) : null;
               })}
+              <UserButton afterSignOutUrl="/"/>
         </nav>
+
       </header>
     </div>
   );
