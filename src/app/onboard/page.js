@@ -1,10 +1,8 @@
+import OnBoard from "@/components/on-board";
 
-
-function OnBoard(){
+function OnBoardPage(){
 return (
-    <div>
-        This is the onboard page
-    </div>
+   <OnBoard/>
 )
 }
 
