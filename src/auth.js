@@ -34,14 +34,25 @@ export const {
     GoogleProvider()],
     
     // session: {
-    //     jwt: true, // Use JWT for session tokens
+    //     strategy: "jwt", // Use JWT for session tokens
     //   },
-    //   callbacks: {
-//       async jwt({token}){
-    //     console.log('jwt', token)
+    // jwt:{
+    //   secret:"jfjdf",
+    //   maxAge:5000
     // }
-    //     async session({ session, token }) {
+    //   callbacks: {
+//       async jwt({token,user}){
+    //     console.log('jwt', token)
+    // if(user){
+
+    //     //token.id=user.id
+    // }
+                //return token;
+    // }
+    //     async session({ session, token||user }) {
     //       // Customize session object
+    //session.user.id=token.id; for jwt
+    //session.user.id=user.id; for database or session based
     //       return session;
     //     },
     //   },
