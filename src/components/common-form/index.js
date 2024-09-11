@@ -16,7 +16,7 @@ function CommonForm({
     switch (getCurrentControl.componentType) {
       case "input":
         content = (
-          <div className="relative flex items-center mt-8">
+          <div key={getCurrentControl.name} className="relative flex items-center mt-8">
             <Input
               type="text"
               disabled={getCurrentControl.disabled}
@@ -37,6 +37,7 @@ function CommonForm({
       case "file":
         content = (
           <Label
+          key={getCurrentControl.name}
             for={getCurrentControl.name}
             className="flex bg-gray-100 items-center px-3 py-3 mx-auto mt-6 text-center border-2 border-dashed rounded-lg cursor-pointer"
           >
@@ -49,6 +50,7 @@ function CommonForm({
         content = (
           <div className="relative flex items-center mt-8">
             <Input
+            key={getCurrentControl.name}
               type="text"
               disabled={getCurrentControl.disabled}
               placeholder={getCurrentControl.placeholder}

@@ -33,7 +33,7 @@ const profileSchema=new Schema({
         resume:String
     }
 
-})
+},{timestamps:true})
 
 const Profile=models.Profile||model('Profile',profileSchema);
 export default Profile;

@@ -4,6 +4,7 @@ import { Tabs,TabsTrigger,TabsList,TabsContent} from "../ui/tabs";
 import CommonForm from "../common-form";
 import { recruiterOnBoardFormControls,initialRecruiterFormData,candidateOnBoardFormControls,initialCandidateFormData } from "@/utils";
 import { useUser } from "@clerk/nextjs";
+import { createProfileAction } from "@/actions";
 
 
 function OnBoard(){
@@ -25,11 +26,15 @@ function handleRecruiterFormValid(){
     return (recruiterFormData && recruiterFormData.name.trim() !== '' &&
     recruiterFormData.companyName.trim() !== '' && recruiterFormData.companyRole.trim() !=='')
 }
-async function createProfileAction(){
+async function createProfile(){
   const data={
     recruiterInfo:recruiterFormData,
-    role:'recruiter'
+    role:'recruiter',
+    isPremiumUser:false,
+    userId:user?.id,
+    email:user?.primaryEmailAddress?.emailAddress
   }
+  await createProfileAction(data,"/onboard");
     
 }
 
@@ -63,7 +68,7 @@ async function createProfileAction(){
             formData={recruiterFormData}
             setFormData={setRecruiterFormData}
             isBtnDisabled={!handleRecruiterFormValid()}
-            action={createProfileAction}
+            action={createProfile}
             />
          </TabsContent>
         </Tabs>
