@@ -214,5 +214,4 @@ location:'',
 experience:'',
 description:'',
 skills:'',
-
 }

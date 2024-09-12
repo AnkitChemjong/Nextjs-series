@@ -21,7 +21,7 @@ function CommonForm({
               type="text"
               disabled={getCurrentControl.disabled}
               placeholder={getCurrentControl.placeholder}
-              id={getCurrentControl.nam}
+              id={getCurrentControl.name}
               value={formData[getCurrentControl.name]}
               name={getCurrentControl.name}
               onChange={(event) =>{setFormData({
@@ -54,7 +54,7 @@ function CommonForm({
               type="text"
               disabled={getCurrentControl.disabled}
               placeholder={getCurrentControl.placeholder}
-              id={getCurrentControl.nam}
+              id={getCurrentControl.name}
               value={formData[getCurrentControl.name]}
               name={getCurrentControl.name}
               onChange={(event) =>{setFormData({
