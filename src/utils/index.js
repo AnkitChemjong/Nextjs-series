@@ -71,7 +71,7 @@ export const candidateOnBoardFormControls=[
     },
     {
         Label:'Notice Period',
-        name:"noticePeriod",
+        name:"noticedPeriod",
         componentType:"input",
         placeholder:'Enter your notice period'
     
@@ -136,7 +136,7 @@ export const candidateOnBoardFormControls=[
 ]
 
 export const initialCandidateFormData={
-    resume:null,
+    resume:'',
     name:'',
     currentJobLocation:'',
     preferredJobLocation:'',

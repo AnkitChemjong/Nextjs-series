@@ -36,3 +36,10 @@ export async function fetchJobsForRecruiterAction(id){
     const result=await Job.find({recruiterId:id});
     return JSON.parse(JSON.stringify(result))
 }
+
+//fetch job for user action
+export async function fetchJobsForCandidateAction(){
+    await connectDB();
+    const result=await Job.find({});
+    return JSON.parse(JSON.stringify(result))
+}

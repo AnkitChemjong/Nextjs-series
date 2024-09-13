@@ -1,5 +1,6 @@
 "use client";
 import PostNewJob from "../post-new-jobs";
+import CandidateJobCard from "../candidate-job-card";
 import RecruiterJobCard from "../recruiter-job-card";
 
 function JobListing({ user, profileInfo, jobList }) {
@@ -28,7 +29,7 @@ function JobListing({ user, profileInfo, jobList }) {
                   {jobList && jobList.length > 0 ? (
                     jobList.map((jobItem) => {
                       return profileInfo?.role === "candidate" ? (
-                        "candidate"
+                        <CandidateJobCard jobItem={jobItem}/>
                       ) : (
                         <RecruiterJobCard jobItem={jobItem}/>
                       );

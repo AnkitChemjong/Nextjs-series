@@ -18,6 +18,7 @@ function RecruiterJobCard({jobItem}){
           </Button>
           }
           icon={<JobIcon/>}
+          description={jobItem?.companyName}
           />
         </div>
     )

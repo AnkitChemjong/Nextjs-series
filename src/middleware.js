@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-const isProtectedRoute = createRouteMatcher(['/(.*)','/onboard(.*)','/membership(.*)','/activity(.*)','/jobs(.*)','/account(.*)'])
+const isProtectedRoute = createRouteMatcher(['/','/onboard(.*)','/membership(.*)','/activity(.*)','/jobs(.*)','/account(.*)'])
 
 export default clerkMiddleware((auth, req) => {
   // Restrict the route until you are logged in

@@ -9,7 +9,7 @@ async function OnBoardPage(){
 const user=await currentUser();
 
 const profileInfo=await fetchProfileAction(user?.id);
-console.log(user)
+// console.log(user)
 
 if(profileInfo?._id){
    if(profileInfo?.role==='recruiter'&& !profileInfo?.inPremiumUser){
