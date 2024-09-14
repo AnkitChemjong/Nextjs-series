@@ -3,6 +3,7 @@ import connectDB from '@/database';
 import Profile from '@/models/profile.js';
 import Job from '@/models/job.js';
 import {revalidatePath} from 'next/cache'
+import Application from '@/models/application.js';
 
 
 
@@ -43,3 +44,28 @@ export async function fetchJobsForCandidateAction(){
     const result=await Job.find({});
     return JSON.parse(JSON.stringify(result))
 }
+
+//create job application
+export async function createJobApplicationAction(formData,pathToRevalidate){
+    await connectDB();
+    const result=await Application.create(formData);
+    revalidatePath(pathToRevalidate);
+}
+
+
+
+//fetch job application-candidate
+export async function fetchJobApplicationForCandidateAction(candidateID){
+    await connectDB();
+    const result=await Application.find({candidateUserID:candidateID});
+    return JSON.parse(JSON.stringify(result))
+}
+
+//fetch job application-recruiter
+export async function fetchJobApplicationForRecruiterAction(recruiterID){
+    await connectDB();
+    const result=await Application.find({recruiterUserID:recruiterID});
+    return JSON.parse(JSON.stringify(result))
+}
+
+//update the job application

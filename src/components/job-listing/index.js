@@ -3,7 +3,7 @@ import PostNewJob from "../post-new-jobs";
 import CandidateJobCard from "../candidate-job-card";
 import RecruiterJobCard from "../recruiter-job-card";
 
-function JobListing({ user, profileInfo, jobList }) {
+function JobListing({ user, profileInfo, jobList ,jobApplications}) {
   return (
     <div>
       <div className="mx-auto max-w-7xl">
@@ -29,9 +29,9 @@ function JobListing({ user, profileInfo, jobList }) {
                   {jobList && jobList.length > 0 ? (
                     jobList.map((jobItem) => {
                       return profileInfo?.role === "candidate" ? (
-                        <CandidateJobCard jobItem={jobItem}/>
+                        <CandidateJobCard profileInfo={profileInfo} jobItem={jobItem} jobApplications={jobApplications}/>
                       ) : (
-                        <RecruiterJobCard jobItem={jobItem}/>
+                        <RecruiterJobCard jobItem={jobItem} jobApplications={jobApplications}/>
                       );
                     })
                   ) : (

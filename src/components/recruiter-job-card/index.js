@@ -4,7 +4,7 @@ import JobIcon from "../job-icon";
 import { Button } from "../ui/button";
 
 
-function RecruiterJobCard({jobItem}){
+function RecruiterJobCard({jobItem,jobApplications}){
     return (
         <div>
           <CommonCard
@@ -14,7 +14,9 @@ function RecruiterJobCard({jobItem}){
             className="flex h-11 items-center justify-center px-5"
             type= "submit"
           >
-            7 Applicants
+           {
+            jobApplications?.filter(item=>item.jobID===jobItem?._id).length
+           }
           </Button>
           }
           icon={<JobIcon/>}
