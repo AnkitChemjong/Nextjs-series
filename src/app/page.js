@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <h1> Welcome to recipe app of mine:</h1>
-      <Link href={'/recipe-list'}>Explore Recipes-</Link>
+      <Link href={'/recipe-list'}>Explore Recipes:-</Link>
     </div>
   );
 }
