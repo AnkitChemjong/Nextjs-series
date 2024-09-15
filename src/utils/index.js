@@ -141,7 +141,7 @@ export const initialCandidateFormData={
     currentJobLocation:'',
     preferredJobLocation:'',
     currentSalary:'',
-    noticedPeriod:'',
+    noticePeriod:'',
     skills:'',
     currentCompany:'',
     previousCompanies:'',

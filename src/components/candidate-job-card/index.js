@@ -90,7 +90,7 @@ function CandidateJobCard({ jobItem,profileInfo ,jobApplications}) {
             </span>
           </DrawerDescription>
           <div className="w-[150px] mt-6 flex justify-center items-center h-[40px] bg-black rounded-[4px]">
-            <h2 className="text-xl font-bold text-white">{jobItem?.type}</h2>
+            <h2 className="text-xl font-bold text-white">{jobItem?.type} Time</h2>
           </div>
           <h3 className="text-2xl font-medium text-black mt-3">
             Experience:- {jobItem?.experience}

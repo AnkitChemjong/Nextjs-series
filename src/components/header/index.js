@@ -60,7 +60,7 @@ function Header({user,profileInfo}) {
               <span className="sr-only">Toggle Navigation Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
+          <SheetContent side="left" className="bg-white">
             <Link href={"/"} className="mr-6 hidden lg:flex">
               <h3>JOBSCO</h3>
             </Link>

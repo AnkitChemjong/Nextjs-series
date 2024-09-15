@@ -33,7 +33,7 @@ async function PostNewJob({profileInfo,user}){
             setShowDialog(false);
             setJobFormData({...initialPostNewJobFormData,companyName:profileInfo?.recruiterInfo?.companyName})
         }}>
-            <DialogContent className="sm:max-w-screen-md h-[600px] overflow-scroll">
+            <DialogContent className="sm:max-w-screen-md h-[600px] overflow-scroll bg-white">
             <DialogHeader>
                   <DialogTitle>Post New Job</DialogTitle>   
                   <div className="grid gap-4 py-4">
