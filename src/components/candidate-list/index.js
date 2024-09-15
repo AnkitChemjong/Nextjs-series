@@ -2,7 +2,7 @@
 import { getCandidateDetailsByAction } from "@/actions";
 import { Fragment } from "react";
 import { Button } from "../ui/button";
-import { Dialog,DialogHeader,DialogTitle,DialogContent } from "../ui/dialog";
+import { Dialog,DialogHeader,DialogTitle,DialogFooter,DialogContent } from "../ui/dialog";
 import { createClient } from "@supabase/supabase-js";
 
 
@@ -34,9 +34,12 @@ function CandidateList({
       console.log(data);
       const a=document.createElement('a');
       a.href=data?.publicUrl;
-      a.setAttribute('download',data?.publicUrl?.split())
-
-
+      a.setAttribute('download',data?.publicUrl?.split('/').pop())
+      document.body.appendChild(a);
+      a.click();
+      //a.remove();
+      document.body.removeChild(a);
+      return alert("DownLoad Successful")
     }
   return (
     <Fragment>
