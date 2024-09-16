@@ -56,7 +56,7 @@ function CandidateJobCard({ jobItem,profileInfo ,jobApplications}) {
             // </DrawerTrigger>
           }
         />
-        <DrawerContent className="p-6">
+        <DrawerContent className="p-6 bg-white">
           <DrawerHeader className="px-0">
             <div className="flex justify-between">
               <DrawerTitle className="text-4xl font-extrabold text-gray-800">

@@ -69,6 +69,15 @@ export async function fetchJobApplicationForRecruiterAction(recruiterID){
 }
 
 //update the job application
+export async function updateJobApplicationAction(formData,pathToRevalidate){
+const {recruiterUserID,name,email,candidateUserID,status,jobID,_id,jobAppliedDate}=formData;
+await connectDB();
+await Application.findOneAndUpdate({_id:_id},{
+    recruiterUserID,name,email,candidateUserID,status,jobID,_id,jobAppliedDate
+},{new:true})
+revalidatePath(pathToRevalidate);
+}
+
 
 //get candidate details by candidate ID
 export async function getCandidateDetailsByAction(currentCandidateID){
