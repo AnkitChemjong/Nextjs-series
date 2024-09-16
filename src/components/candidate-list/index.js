@@ -29,17 +29,19 @@ function CandidateList({
 
     }
     async function handlePreviewResume(){
-      const {error,data}=supabaseClient.storage.from('job-portal-public').getPublicUrl(currentCandidateDetails?.candidateInfo?.resume);
+      const {error,data}=supabaseClient.storage.from('job-board-public').getPublicUrl(currentCandidateDetails?.candidateInfo?.resume);
       if(error) return error;
-      console.log(data);
-      const a=document.createElement('a');
-      a.href=data?.publicUrl;
-      a.setAttribute('download',data?.publicUrl?.split('/').pop())
-      document.body.appendChild(a);
-      a.click();
-      //a.remove();
-      document.body.removeChild(a);
-      return alert("DownLoad Successful")
+      if(data){
+        // console.log(data);
+        const a=document.createElement('a');
+        a.href=data?.publicUrl;
+        a.setAttribute('download',data?.publicUrl?.split('/').pop())
+        document.body.appendChild(a);
+        a.click();
+        //a.remove();
+        document.body.removeChild(a);
+        return alert("DownLoad Successful")
+      }
     }
   return (
     <Fragment>
