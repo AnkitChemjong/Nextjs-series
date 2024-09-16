@@ -85,3 +85,11 @@ export async function getCandidateDetailsByAction(currentCandidateID){
     const result=await Profile.findOne({userId:currentCandidateID});
     return JSON.parse(JSON.stringify(result))
 }
+
+//filter categories
+
+export async function createFilterCategoryAction(){
+    await connectDB();
+    const result=await Job.find({})
+    return JSON.parse(JSON.stringify(result))
+}

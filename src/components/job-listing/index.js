@@ -2,9 +2,45 @@
 import PostNewJob from "../post-new-jobs";
 import CandidateJobCard from "../candidate-job-card";
 import RecruiterJobCard from "../recruiter-job-card";
+import { filterMenuDataArray } from "@/utils";
+import { Label } from "../ui/label";
+import { Menubar,MenubarItem ,MenubarTrigger,MenubarMenu,MenubarContent} from "../ui/menubar";
+import { useState } from "react";
 
-function JobListing({ user, profileInfo, jobList ,jobApplications}) {
+function JobListing({ user, profileInfo, jobList ,jobApplications,filterCategories}) {
+
+  const [filterParams,setFilterParams]=useState({});
+  
+  function handleFilter(getSectionID,getCurrentOption){
+    let cpyFilterParams={...filterParams};
+    const indexOfCurrentSection=Object.keys(cpyFilterParams).indexOf(getSectionID);
+    if(indexOfCurrentSection===-1){
+      cpyFilterParams={
+        ...cpyFilterParams,
+        [getSectionID]:[getCurrentOption]
+      }
+    }
+    else{
+      const indexOfCurrentOption=cpyFilterParams[getSectionID].indexOf(getCurrentOption);
+      if(indexOfCurrentOption === -1) cpyFilterParams[getSectionID].push(getCurrentOption);
+      else cpyFilterParams[getSectionID].splice(indexOfCurrentOption, 1);
+    }
+    setFilterParams(cpyFilterParams);
+    sessionStorage.setItem('filterParams',JSON.stringify(cpyFilterParams));
+  }
+
+ const filterMenus=filterMenuDataArray?.map(item=>({
+  id:item.id,
+  name:item.label,
+  options:[
+    ...new Set(filterCategories?.map(listItem=>listItem[item.id])),
+  ]
+ })
+  )
+
+
   return (
+
     <div>
       <div className="mx-auto max-w-7xl">
         <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
@@ -15,7 +51,32 @@ function JobListing({ user, profileInfo, jobList ,jobApplications}) {
           </h1>
           <div className="flex items-center">
             {profileInfo?.role === "candidate" ? (
-              <p>Filter</p>
+              <Menubar>
+                {
+                  filterMenus?.map(filterMenu=>
+                    <MenubarMenu>
+                      <MenubarTrigger>{filterMenu.name}</MenubarTrigger>
+                      <MenubarContent>
+                        {
+                          filterMenu.options.map((option,optionIdx)=>(
+                            <MenubarItem
+                            key={optionIdx}
+                            className="flex items-center"
+                            onClick={()=>handleFilter(filterMenu.id,option)}
+                            >
+                              <div className={`h-4 w-4 border rounded border-gray-900 ${filterParams && Object.keys(filterParams).length>0 && filterParams[filterMenu.id] && filterParams[filterMenu.id].indexOf(option) > -1? 'bg-black':''}`}/>
+                               <Label className="ml-3 cursor-pointer text-sm text-gray-600">
+                                {option}
+                               </Label>
+                              
+                            </MenubarItem>
+                          ))
+                        }
+                      </MenubarContent>
+                    </MenubarMenu>
+                    )
+                }
+              </Menubar>
             ) : (
               <PostNewJob user={user} profileInfo={profileInfo} />
             )}
