@@ -2,14 +2,18 @@
 import PostNewJob from "../post-new-jobs";
 import CandidateJobCard from "../candidate-job-card";
 import RecruiterJobCard from "../recruiter-job-card";
-import { filterMenuDataArray } from "@/utils";
+import { filterMenuDataArray,formUrlQuery } from "@/utils";
 import { Label } from "../ui/label";
 import { Menubar,MenubarItem ,MenubarTrigger,MenubarMenu,MenubarContent} from "../ui/menubar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
 
 function JobListing({ user, profileInfo, jobList ,jobApplications,filterCategories}) {
 
   const [filterParams,setFilterParams]=useState({});
+  const searchParams=useSearchParams();
+  const router=useRouter();
   
   function handleFilter(getSectionID,getCurrentOption){
     let cpyFilterParams={...filterParams};
@@ -28,6 +32,23 @@ function JobListing({ user, profileInfo, jobList ,jobApplications,filterCategori
     setFilterParams(cpyFilterParams);
     sessionStorage.setItem('filterParams',JSON.stringify(cpyFilterParams));
   }
+useEffect(()=>{
+  setFilterParams(JSON.parse(sessionStorage.getItem("filterParams")));
+},[]);
+
+useEffect(()=>{
+if(filterParams && Object.keys(filterParams).length >0){
+  let url='';
+  url=formUrlQuery({
+    params:searchParams.toString(),
+    dataToAdd:filterParams
+  })
+
+  router.push(url,{scroll:false});
+}
+},[filterParams,searchParams])
+
+
 
  const filterMenus=filterMenuDataArray?.map(item=>({
   id:item.id,

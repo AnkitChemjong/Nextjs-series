@@ -20,7 +20,7 @@ function CandidateActivity({ jobList, jobApplicants }) {
             Your Activity
           </h1>
           <TabsList>
-            {uniqueStatusArray.map((status) => (
+            {uniqueStatusArray?.map((status) => (
               <TabsTrigger value={status}>{status}</TabsTrigger>
             ))}
           </TabsList>
@@ -35,7 +35,7 @@ function CandidateActivity({ jobList, jobApplicants }) {
                       (jobItem) =>
                         jobApplicants?.filter(
                             (jobApplication) =>
-                              jobApplication.status.indexOf(status) > -1
+                              jobApplication.status?.indexOf(status) > -1
                           )
                           .findIndex(
                             (filteredItemByStatus) =>

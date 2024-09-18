@@ -39,9 +39,15 @@ export async function fetchJobsForRecruiterAction(id){
 }
 
 //fetch job for user action
-export async function fetchJobsForCandidateAction(){
+export async function fetchJobsForCandidateAction(filterParams={}){
     await connectDB();
-    const result=await Job.find({});
+    let updatedParams={};
+    Object.keys(filterParams).forEach(filterKey=>{
+        updatedParams[filterKey] = {$in:filterParams[filterKey].split(',')}
+    })
+    const result = await Job.find(
+        filterParams && Object.keys(filterParams).length > 0 ? updatedParams : {}
+      );
     return JSON.parse(JSON.stringify(result))
 }
 
@@ -93,3 +99,41 @@ export async function createFilterCategoryAction(){
     const result=await Job.find({})
     return JSON.parse(JSON.stringify(result))
 }
+
+
+//update profile action
+export async function updateProfileAction(data, pathToRevalidate) {
+    await connectDB();
+    const {
+      userId,
+      role,
+      email,
+      isPremiumUser,
+      memberShipType,
+      memberShipStartDate,
+      memberShipEndDate,
+      recruiterInfo,
+      candidateInfo,
+      _id,
+    } = data;
+  
+    await Profile.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      {
+        userId,
+        role,
+        email,
+        isPremiumUser,
+        memberShipType,
+        memberShipStartDate,
+        memberShipEndDate,
+        recruiterInfo,
+        candidateInfo,
+      },
+      { new: true }
+    );
+  
+    revalidatePath(pathToRevalidate);
+  }

@@ -1,3 +1,5 @@
+import qs from 'query-string';
+
 export const recruiterOnBoardFormControls=[
     {
     Label:'Name',
@@ -71,7 +73,7 @@ export const candidateOnBoardFormControls=[
     },
     {
         Label:'Notice Period',
-        name:"noticedPeriod",
+        name:"noticePeriod",
         componentType:"input",
         placeholder:'Enter your notice period'
     
@@ -137,6 +139,22 @@ export const candidateOnBoardFormControls=[
 
 export const initialCandidateFormData={
     resume:'',
+    name:'',
+    currentJobLocation:'',
+    preferredJobLocation:'',
+    currentSalary:'',
+    noticePeriod:'',
+    skills:'',
+    currentCompany:'',
+    previousCompanies:'',
+    totalExperience:'',
+    college:'',
+    collegeLocation:'',
+    graduatedYear:'',
+    linkedInProfile:'',
+    githubProfile:'',
+}
+export const initialCandidateAccountFormData={
     name:'',
     currentJobLocation:'',
     preferredJobLocation:'',
@@ -239,3 +257,24 @@ export const filterMenuDataArray=[
   
   },
   ]
+
+  export function formUrlQuery({ params, dataToAdd }) {
+    let currentURL = qs.parse(params);
+  
+    if (Object.keys(dataToAdd).length > 0) {
+      Object.keys(dataToAdd).map((key) => {
+        if (dataToAdd[key].length === 0) delete currentURL[key];
+        else currentURL[key] = dataToAdd[key].join(",");
+      });
+    }
+  
+    return qs.stringifyUrl(
+      {
+        url: window.location.pathname,
+        query: currentURL,
+      },
+      {
+        skipNull: true,
+      }
+    );
+  }
