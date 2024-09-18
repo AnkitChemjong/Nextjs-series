@@ -52,10 +52,10 @@ function Header({user,profileInfo}) {
 
   return (
     <div>
-      <header className="flex h-16 w-full shrink-0 items-center">
+      <header className="mb-10 flex h-16 w-full shrink-0 items-center">
         <Sheet>
           <SheetTrigger asChild>
-            <Button className="lg:hidden">
+            <Button className=" lg:hidden">
               <AlignJustify className="h-6 w-6" />
               <span className="sr-only">Toggle Navigation Menu</span>
             </Button>
@@ -81,8 +81,8 @@ function Header({user,profileInfo}) {
             </div>
           </SheetContent>
         </Sheet>
-        <Link className="hidden lg:flex mr-6" href={'/'}>
-        JOBSCO
+        <Link className="hidden font-bold text-4xl lg:flex mr-6" href={'/'}>
+        JOB.COM
         </Link>
         <nav className="hidden lg:flex gap-6 ml-auto">
         {menuItems.map((item) => {

@@ -7,12 +7,23 @@ const user=await currentUser();
 const jobApplicants=await fetchJobApplicationForCandidateAction(user?.id);
 const jobList=await fetchJobsForCandidateAction();
 
-    return (
-        <CandidateActivity 
-        jobList={jobList}
-        jobApplicants={jobApplicants}
-        />
-    )
+
+if(jobApplicants.length===0) {
+    return(
+    <div className=" w-100% h-[200px] lg:h-[450px] flex items-center justify-center">
+           <h1 className="text-3xl md:text-7xl text-gray-800 font-mono font-bold flex-wrap">No Activity</h1>
+    </div>
+)
+}
+else{
+return (
+            <CandidateActivity 
+            jobList={jobList}
+            jobApplicants={jobApplicants}
+            />
+        )
+}
+
 }
 
 export default Activity;

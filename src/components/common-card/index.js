@@ -9,7 +9,7 @@ import {
 
   function CommonCard({icon,title,description,footerContent}){
     return(
-      <Card className="flex bg-gray-100 flex-col gap-6 rounded-2xl p-8 transition duration-300 hover:bg-white hover:shadow-2xl hover:shadow-gray-600/10 cursor-pointer">
+      <Card className="flex bg-gray-100 flex-col gap-6 rounded-2xl p-8 transition duration-300 hover:bg-white hover:shadow-2xl hover:shadow-gray-600/10 cursor-pointer mt-2">
         <CardHeader className="p-0">
             {
                 icon? icon:null
