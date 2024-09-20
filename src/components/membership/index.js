@@ -97,7 +97,7 @@ async function updateProfile(){
                      <h1 className="font-bold text-2xl">{plan.heading}</h1>
                     </div>
                 }
-                title={`${plan.price} /yr`}
+                title={`${plan.price} ${plan.type==='basic'? "/month":plan.type==='teams'? "/6 month":"/year"}`}
                 description={plan.type}
                 footerContent={
                     profileInfo?.memberShipType === "enterprise" ||
