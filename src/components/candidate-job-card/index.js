@@ -14,11 +14,24 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
+import { useToast } from "@/hooks/use-toast";
 
 function CandidateJobCard({ jobItem,profileInfo ,jobApplications}) {
   const [showJobDetailsDrawer, setShowJobDetailsDrawer] = useState(false);
 
+  const {toast}=useToast();
+
   async function handleJobApply(){
+    setShowJobDetailsDrawer(false);
+    if(!profileInfo?.isPremiumUser && jobApplications.length>=2){
+      toast({
+        variant:"destructive",
+        title:"You can post max 2 jobs",
+        description:"Please opt for membership to post more jobs",
+        action:<Link href={'/membership'}>Go to Membership</Link>
+      })
+      return;
+    }
     await createJobApplicationAction({
      recruiterUserID:jobItem?.recruiterId,
      name:profileInfo?.candidateInfo?.name,

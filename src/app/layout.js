@@ -4,6 +4,7 @@ import "./globals.css";
 import Loading from "./loading.js";
 import { Suspense } from "react";
 import CommonLayout from "@/components/common-layout";
+import { Toaster } from "@/components/ui/toaster";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
         <Suspense fallback={<Loading/>}>
           <CommonLayout children={children}/>
         </Suspense>
+          <Toaster/>
       </body>
     </html>
     </ClerkProvider>

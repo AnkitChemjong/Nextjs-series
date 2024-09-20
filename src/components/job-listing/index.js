@@ -99,7 +99,7 @@ if(filterParams && Object.keys(filterParams).length >0){
                 }
               </Menubar>
             ) : (
-              <PostNewJob user={user} profileInfo={profileInfo} />
+              <PostNewJob jobList={jobList} user={user} profileInfo={profileInfo} />
             )}
           </div>
         </div>
