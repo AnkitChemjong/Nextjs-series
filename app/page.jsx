@@ -3,6 +3,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { assets } from "@/assets/assets";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import PromptBox from "@/components/PromptBox/PromptBox";
+import Message from "@/components/Message/Message";
 
 export default function Home() {
   const [expand,setExpand]=useState(false);
@@ -20,7 +22,7 @@ export default function Home() {
           <Image className="opacity-70" src={assets?.chat_icon} alt="chat icon"/>
           </div>
           {
-            messages?.length===0? 
+            messages?.length ===0? 
             (
                 <>
                 <div className="flex gap-3 items-center ">
@@ -33,10 +35,10 @@ export default function Home() {
             ) :
             (
              <div>
-            
+               <Message role='user' content='what is next js'/>
              </div>
             ) }
-            {/* --promt box-- */}
+            <PromptBox isLoading={isLoading} setIsLoading={setIsLoading}/>
             <p className="text-xs absolute bottom-1 text-gray-500">AI-generated, for reference only.</p>
         </div>
       </div>
